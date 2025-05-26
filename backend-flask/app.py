@@ -4,6 +4,7 @@ app=Flask(__name__)
 
 @app.route('/')
 
+
 def  home():
     return jsonify({"message":"crop disease detector is enabled"})
 

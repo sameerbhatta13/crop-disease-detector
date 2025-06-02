@@ -1,23 +1,19 @@
-from flask import Flask,jsonify,request
+from flask import Flask, jsonify, request
 
-app=Flask(__name__)
+app = Flask(__name__)
 
 @app.route('/')
+def home():
+    return jsonify({"message": "Hello, Flask!"})
 
-
-def  home():
-    return jsonify({"message":"crop disease detector is enabled"})
-
-@app.route('/predict',methods=['POST'])
-
+@app.route('/predict', methods=['POST'])
 def predict():
-    data=request.json
-    # example placeholder logic
+    data = request.json
     return jsonify({
-        "leaf msg received":data.get('image_base64'),
-        "diseases detected":"Blight", #replace it later with actual data model
-        "treatment":"use copper-based fungicide"
+        "leaf_mg_received": 0,
+        "diseases_detected": "None",
+        "treatment": "Use"
     })
 
-if __name__=='__main__':
-    app.run(debug=True,port=5001)
+if __name__ == '__main__':
+    app.run()

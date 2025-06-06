@@ -1,16 +1,10 @@
 import { configDotenv } from 'dotenv'
-import express from 'express'
-import morgan from 'morgan'
 import { connectDB } from './configs/database'
+import app from './app'
 configDotenv()
 
-const app = express()
+
 const port = process.env.PORT || 3000
-
-
-app.use(morgan('dev'))
-app.use(express.json())
-
 
 const startServer = async () => {
     try {

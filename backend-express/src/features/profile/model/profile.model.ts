@@ -24,6 +24,6 @@ const profileSchema = new Schema<IProfile>(
 }
 )
 
-const profile = mongoose.model<IProfile>('Profile', profileSchema)
-export default profile
+const Profile = mongoose.model<IProfile>('Profile', profileSchema)
+export default Profile
 

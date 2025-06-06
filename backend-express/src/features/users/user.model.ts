@@ -10,6 +10,7 @@ export interface IUser extends Document {
     password: string
     role: 'user' | 'admin'
     isActive: boolean
+    isVerified?: boolean
     profile?: mongoose.Types.ObjectId
     verificationToken?: string
     verificationTokenDate?: Date
@@ -23,6 +24,7 @@ const UserSchema = new Schema<IUser>({
     password: { type: String, trim: true },
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     isActive: { type: Boolean, default: false },
+    isVerified: { type: Boolean, default: false },
     profile: { type: mongoose.Schema.Types.ObjectId, ref: "Profile" }
 
 })

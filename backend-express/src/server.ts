@@ -1,7 +1,7 @@
 import { configDotenv } from 'dotenv'
 import express from 'express'
 import morgan from 'morgan'
-import { connectDB } from './src/configs/database'
+import { connectDB } from './configs/database'
 configDotenv()
 
 const app = express()

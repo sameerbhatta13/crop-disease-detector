@@ -1,4 +1,4 @@
-import User from "../../users/user.model"
+import User from "../../users/models/user.model"
 
 class AuthService {
     async register(body: any) {
@@ -47,3 +47,5 @@ class AuthService {
         }
     }
 }
+
+export default new AuthService()

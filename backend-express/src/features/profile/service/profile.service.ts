@@ -1,4 +1,4 @@
-import User from "../../users/user.model"
+import User from "../../users/models/user.model"
 import Profile from "../model/profile.model"
 
 class ProfileService {

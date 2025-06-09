@@ -4,6 +4,7 @@ import { getUserByEmail } from "../../users/services/user.service";
 import { sendBadRequest, sendSuccess } from "../../../utils/responseUtils";
 import { sendEmailVerification } from "../../../helpers/email-helper";
 import authService from "../service/auth.service";
+import { AuthRequest } from "../../../middlewares/auth";
 
 export const register = asyncHandler(async (req: Request, res: Response) => {
     let verificationToken: string
@@ -29,7 +30,7 @@ export const register = asyncHandler(async (req: Request, res: Response) => {
     if (!result.success) {
         return sendBadRequest(res, result.message)
     }
-    return sendSuccess(res, 'user registered successfully', result.message)
+    return sendSuccess(res, 'user registered successfully', result.data)
 })
 
 
@@ -44,4 +45,31 @@ export const login = asyncHandler(async (req: Request, res: Response) => {
 
 
     return sendSuccess(res, 'login successful', result.data)
+})
+
+//get current user
+
+export const getCurrentUser = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const userId = req.user?._id
+    const result = await authService.getCurrentUser(userId as string)
+
+    if (!result.success) {
+        return sendBadRequest(res, result.message)
+    }
+    return sendSuccess(res, 'current user retrieved successsfully', result.data)
+})
+
+//verify email
+
+export const verifyEmail = asyncHandler(async (req: AuthRequest, res: Response) => {
+    const token = req.params.token
+
+    if (!token) return sendBadRequest(res, 'token is not provided')
+
+    const { success, message } = await authService.verifyEmail(token)
+    if (!success) {
+        return sendBadRequest(res, `${message}`)
+    }
+    return sendSuccess(res, `${message}`)
+
 })

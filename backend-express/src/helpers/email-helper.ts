@@ -10,7 +10,7 @@ export const sendEmailVerification = async (to: string): Promise<{ verificationT
 
     const verificationToken = crypto.randomBytes(20).toString('hex')
     const verificationTokenExpires = Date.now() + 3600000
-    const verificationUrl = `${process.env.BASE_URL}/api/verify-email/${verificationToken}`
+    const verificationUrl = `${process.env.BASE_URL}/api/auth/verify-email/${verificationToken}`
 
     const mailOptions = {
         from: EMAIL_FROM,

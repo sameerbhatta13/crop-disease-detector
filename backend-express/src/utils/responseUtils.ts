@@ -17,7 +17,7 @@ export const sendSuccess = (res: Response, message: string, data?: any) => {
 }
 
 export const sendBadRequest = (res: Response, message = 'InvalidRequest', data?: any) => {
-    const response: ApiResponse = { success: true, message, data }
+    const response: ApiResponse = { success: false, message, data }
     res.status(400).json(response)
 
 }

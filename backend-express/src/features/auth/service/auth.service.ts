@@ -1,3 +1,4 @@
+import Profile from "../../profile/model/profile.model"
 import User from "../../users/models/user.model"
 
 class AuthService {
@@ -45,6 +46,44 @@ class AuthService {
                 accessToken
             }
         }
+    }
+
+    async getCurrentUser(userId: string) {
+        const user = await User.findById(userId)
+        if (!user) {
+            return { success: false, message: 'User not found' }
+        }
+        const profile = await Profile.findOne({ user: userId })
+
+        return {
+            success: true,
+            data: {
+                user,
+                profile
+            }
+        }
+    }
+
+    async verifyEmail(verificationToken: string) {
+        const user = await User.findOne({ verificationToken })
+
+        if (!user) {
+            return { success: false, message: "Invalid or expired verification" }
+        }
+        if (user.isVerified) {
+            return { success: false, message: 'user is already verified' }
+        }
+        if (!user.verificationTokenExpires || user.verificationTokenExpires.getTime() < Date.now()) {
+            return { success: false, message: 'verification token expires' }
+        }
+        //mark as a verified
+        user.isVerified = true
+        user.verificationToken = undefined
+        user.verificationTokenExpires = undefined
+        await user.save()
+
+        return { success: true, message: 'Email verifed successfully' }
+
     }
 }
 

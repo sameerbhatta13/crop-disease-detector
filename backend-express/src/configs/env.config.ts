@@ -7,3 +7,4 @@ dotenv.config({ path: envFile })
 
 
 export const EMAIL_FROM = process.env.EMAIL_FROM as string
+export const BASE_URL = process.env.BASE_URL as string

@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-export const createProfileValidator = z.object({
+export const createProfileSchema = z.object({
     dob: z.string().refine((val) => isNaN(Date.parse(val)), {
         message: 'invalid date format'
     }),
@@ -9,5 +9,4 @@ export const createProfileValidator = z.object({
     gender: z.enum(['male', 'female', 'other'], {
         errorMap: () => ({ message: 'gender must be male ,female or other ' })
     }),
-    avatarUrl: z.string().url().optional()
 })

@@ -1,8 +1,9 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StatusBar as RNStatusBar, StyleSheet } from 'react-native';
 import React from 'react';
 import { Tabs } from 'expo-router';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 
+const STATUSBAR_HEIGHT = Platform.OS === "android" ? RNStatusBar.currentHeight : 44;
 const TabsLayout = () => {
     return (
         <Tabs

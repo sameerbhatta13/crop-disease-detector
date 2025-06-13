@@ -3,18 +3,20 @@ import { View, Text, TextInput, TouchableOpacity } from 'react-native';
 import React from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 const Register = () => {
     const router = useRouter()
     return (
         <SafeAreaView className="flex-1 bg-white px-6">
+            <StatusBar style="dark" />
             <View className="flex-1 justify-center">
                 <Text className="text-2xl font-bold text-green-700 mb-8 text-center">Create Account</Text>
 
                 <TextInput
                     placeholder="Full Name"
                     className="border border-gray-300 rounded-lg px-4 py-3 mb-4 text-base"
-                    placeholderTextColor="#888"
+                    placeholderTextColor="#88 8"
                 />
                 <TextInput
                     placeholder="Email"
@@ -34,7 +36,7 @@ const Register = () => {
                 </TouchableOpacity>
             </View>
 
-            <TouchableOpacity className="mt-6 mb-4" onPress={() => router.push('/(auth)/login')}>
+            <TouchableOpacity className="mt-6 mb-4" onPress={() => router.push('/login' as any)}>
                 <Text className="text-center text-gray-600">
                     Already have an account? <Text className="text-green-700 font-medium">Login</Text>
                 </Text>

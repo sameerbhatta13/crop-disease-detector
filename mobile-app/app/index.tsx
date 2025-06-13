@@ -1,25 +1,38 @@
-import React from 'react'
-import { Text, TouchableOpacity, View } from 'react-native'
-import '../global.css'
-import { useRouter } from 'expo-router'
+// app/index.tsx
+import React from 'react';
+import { Text, TouchableOpacity, View, ImageBackground } from 'react-native';
+import { useRouter } from 'expo-router';
+import '../global.css';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-const index = () => {
-    const router = useRouter()
+const Index = () => {
+    const router = useRouter();
+
     return (
-        <>
+        <SafeAreaProvider>
+            <ImageBackground
+                source={require('../assets/images/farmerOne.jpg')} // 👈 Update path if needed
+                resizeMode="cover"
+                style={{ flex: 1 }}
+            >
+                <View className="flex-1 bg-black/40 px-6 pb-10 justify-end">
+                    <View className=" p-6 rounded-xl">
+                        <Text className="text-2xl text-white ml-3 font-bold mb-4">
+                            Welcome to AgriConnect
+                        </Text>
+                        <TouchableOpacity
+                            className="bg-green-600 p-3 rounded-lg font-semibold"
+                            onPress={() => router.push('/(auth)/register')}
+                        >
+                            <Text className="text-white text-center font-semibold">
+                                Get Started
+                            </Text>
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </ImageBackground>
+        </SafeAreaProvider>
+    );
+};
 
-            <View className='mx-10 my-10 w-fit '>
-                <Text className=' bg-green-100 my-4'>hello from react native</Text>
-                <TouchableOpacity className='bg-red-500 text-white w-auto rounded-lg'
-                    onPress={() => router.push('/home')}>
-                    <Text>click me</Text>
-                </TouchableOpacity>
-            </View>
-
-
-        </>
-    )
-}
-
-export default index
-
+export default Index;

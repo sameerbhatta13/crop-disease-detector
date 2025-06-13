@@ -10,10 +10,14 @@
     }
   },
   "include": [
+    "src",
+    "app",
     "**/*.ts",
     "**/*.tsx",
     ".expo/types/**/*.ts",
     "expo-env.d.ts",
-    "nativewind-env.d.ts"
+    "nativewind-env.d.ts",
+    "expo-router.d.ts",
+    "@types/env.d.ts"
   ]
 }

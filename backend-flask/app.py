@@ -6,7 +6,7 @@ app = Flask(__name__)
 def home():
     return jsonify({"message": "Hello, Flask!"})
 
-@app.route('/predict', methods=['POST'])
+@app.route('/predict', methods=['GET','POST'])
 def predict():
     data = request.json
     return jsonify({

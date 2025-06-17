@@ -2,6 +2,7 @@ import multer from "multer";
 import path from "path";
 import fs from 'fs/promises'
 import { Request } from "express";
+import { existsSync } from "fs";
 
 const PUBLIC_DIR = path.resolve(__dirname, '..', 'public')  //resolve from src → parent (your project root) → then into public.
 //if i am deep nested in the folder i have to use (_dirname, '..', '..','public')
@@ -51,3 +52,41 @@ export const upload = multer({
         files: 1,
     }
 })
+
+export const deleteAvatar = async (filePath: string): Promise<void> => {
+    try {
+        if (!filePath) {
+            console.warn('no file path is provided')
+            return
+        }
+        const fsPath = filePath.startsWith('/public') ? filePath.replace(/^public\//, `${PUBLIC_DIR}`) : filePath
+        if (existsSync(fsPath)) {
+            console.log(`deleting file :${fsPath}`)
+            await fs.unlink(fsPath)
+        } else {
+            console.warn(`file not found for deletion ${fsPath}`)
+        }
+    } catch (error) {
+        console.error(`error deleting file ${filePath}:`, error)
+        throw new Error(`failed to delete file: ${(error as Error).message}`)
+    }
+}
+
+export const updateAvatar = async (oldFilePath: string | undefined, newFile: Express.Multer.File): Promise<string> => {
+    try {
+        if (oldFilePath) {
+            await deleteAvatar(oldFilePath)
+        }
+        const publicPath = newFile.path.replace('/\\/g', '/').replace(new RegExp(`^${PUBLIC_DIR}/`), 'public/')
+
+        if (!existsSync(newFile.path)) {
+            throw new Error(`updated file path not found  at ${newFile.path}`)
+        }
+        console.log(`generated public path:${publicPath}`)
+        return publicPath
+    } catch (error) {
+        console.error('Error updating avatar:', error);
+        throw error;
+
+    }
+}

@@ -10,3 +10,14 @@ export const createProfileSchema = z.object({
         errorMap: () => ({ message: 'gender must be male ,female or other ' })
     }),
 })
+
+export const updateProfileSchema = z.object({
+    dob: z.string().refine((val) => !isNaN(Date.parse(val)), {
+        message: 'Invalid date format'
+    }).optional(),
+    address: z.string().min(1, 'address is required').optional(),
+    phone: z.string().min(1, 'phone is required').optional(),
+    gender: z.enum(['male', 'female', 'other'], {
+        errorMap: () => ({ message: 'gender must be male, female or other' })
+    }).optional()
+})

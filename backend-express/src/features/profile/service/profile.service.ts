@@ -1,5 +1,5 @@
 import User from "../../users/models/user.model"
-import Profile from "../model/profile.model"
+import Profile, { IProfile } from "../model/profile.model"
 
 class ProfileService {
     async createProfile(body: any) {
@@ -26,6 +26,16 @@ class ProfileService {
         if (!profile) {
             return { success: false, message: 'profile not found' }
         }
+        return { success: true, data: profile }
+    }
+
+    async updateProfile(userId: string, body: Partial<IProfile>) {
+        const profile = await Profile.findOne({ user: userId })
+        if (!profile) {
+            return { success: false, message: "profile not found" }
+        }
+        Object.assign(profile, body)  //object.assign(target, ...source)
+        await profile.save()
         return { success: true, data: profile }
     }
 }
